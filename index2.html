@@ -1,0 +1,52 @@
+<!-- 进阶内容 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>title2</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
+</head>
+<body>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+	<div id="app" class="container">
+		<message title="标题" content="搭建好，我是内容"></message>
+		<message title="标题1" content="搭建好，我是内容"></message>
+		<message title="标题2" content="搭建好，我是内容"></message>
+		<message title="标题3" content="搭建好，我是内容"></message>
+	</div>
+
+
+	<script type="text/javascript">
+	Vue.component('message', {
+		props: ['title', 'content'],
+		// 如果是换行多行的话就使用`符号，然而'不支持换行
+		template: `
+		<article class="message" v-show="display">
+			<div class="message-header">
+				<p>{{ title }}</p>
+				<button class="delete" aria-label="delete" @click="hideSection"></button>
+			</div>
+			<div class="message-body">{{ content }}</div>
+		</article>
+		`,
+		data() {
+			return {
+				display: true
+			}
+		},
+		methods: {
+			hideSection() {
+				this.display = false
+			}
+		}
+	});
+
+	var app = new Vue({
+		el: '#app'
+	})
+	</script>
+</body>
+</html>

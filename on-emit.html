@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>title</title>
+</head>
+<body>
+<script type="text/javascript" src="vue.js"></script>
+
+<div id="app">
+
+<h1 v-text="text"></h1>
+
+<on-emmit @inr="totalNum"></on-emmit>
+<on-emmit @inr="totalNum"></on-emmit>
+
+<br>
+总共：{{ totalCount }}
+
+</div>
+
+<script type="text/javascript">
+
+	Vue.component('on-emmit', {
+		template: '<button @click="increment">{{ id }}</button>',
+		data: function () {
+			return {
+				id: 0
+			}
+		},
+		methods: {
+			increment: function () {
+				this.id += 1
+				this.$emit('inr')
+			}
+		}
+	})
+
+
+	var app = new Vue({
+		el: '#app',
+		data: {
+			totalCount: 0,
+			text: 'on监听，emit触发'
+		},
+		created() {
+
+		},
+		computed: {
+
+		},
+		methods: {
+			totalNum: function () {
+				this.totalCount += 1
+			}
+		},
+		watch: {
+
+		}
+	})
+</script>
+</body>
+</html>

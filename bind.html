@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>title</title>
+</head>
+<body>
+<script type="text/javascript" src="vue.js"></script>
+
+<div id="app">
+
+{{ input }}
+<input type="text" v-model="input" placeholder="">
+
+<hr>
+
+<p :style="style">{{ content }}</p>
+<textarea name="textarea" id="textarea" cols="30" rows="10" v-model="content"></textarea>
+
+<hr>
+
+<input type="checkbox" id="checkbox" v-model="checkbox">
+<label for="checkbox">{{ checkbox }}</label>
+
+<hr>
+
+<input type="checkbox" id="one" value="one" v-model="checkNames">
+<label for="one">one</label>
+<input type="checkbox" id="two" value="two" v-model="checkNames">
+<label for="two">two</label>
+<input type="checkbox" id="three" value="three" v-model="checkNames">
+<label for="three">three</label>
+<br>你选择的值：{{ checkNames }}
+
+
+<hr>
+
+
+<input type="radio" id="a" value="a" v-model="radio">
+<label for="a">a</label>
+<input type="radio" id="b" value="b" v-model="radio">
+<label for="b">b</label>
+<br>你的选择是：{{ radio }}
+
+
+<hr>
+
+<select v-model="select" multiple="">
+	<option value="">请选择</option>
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+</select>
+<br>你的选择是：{{ select }}
+
+<hr>
+
+<p>使用v-for渲染选择框</p>
+
+<select v-model="selected">
+	<option v-for="option in options" :value="option.value" v-text="option.text"></option>
+</select>
+<br>你的选择是：{{ selected }}
+
+
+<hr>
+<!-- 下面看到这个复选框，请仔细看一下：true-value意思是如果选中（为true）则value的值就是yes -->
+<input type="checkbox" v-model="toggle" true-value="yes" false-value="no">
+<br>值为：{{ toggle }}
+
+
+<hr>
+
+<!-- 单选框，当选中的时候就定义他的值，跟上面一样 -->
+<input type="radio" v-model="pick" :value="a">
+<br>选中之后的选项的值为：{{ a }}
+
+<hr>
+
+<!-- 选择框选项概念：v-bind:value绑定的是vue的一个对象属性，所以number只是一个属性名称，而123才是真正的值 -->
+<select v-model="selected">
+	<option :value="{ number: 123 }">123</option>
+</select>
+<br>选中的值为：{{ selected.number }}
+
+<hr>
+
+<!-- 看看一些修饰符 -->
+
+<input type="text" v-model.trim="msg">值为：{{ msg }}
+<br>
+<input type="number" v-model.number="age">值为：{{ age }}
+
+</div>
+
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app',
+		data: {
+			input: '',
+			content: '',
+			style: {
+				whiteSpace: 'pre-line'
+			},
+			checkbox: false,
+			checkNames: [],
+			radio: '',
+			select: [],
+			selected: 'A',
+			options: [
+				{ text: 'one', value: 'A' },
+				{ text: 'two', value: 'B' },
+				{ text: 'three', value: 'C' },
+			],
+			toggle: 'yes',
+			pick: false,
+			a: '值',
+			msg: '内容',
+			age: 19
+		},
+		created() {
+
+		},
+		computed: {
+
+		},
+		methods: {
+
+		},
+		watch: {
+
+		}
+	})
+</script>
+</body>
+</html>

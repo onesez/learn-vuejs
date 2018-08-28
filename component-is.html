@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>title</title>
+</head>
+<body>
+<script type="text/javascript" src="vue.js"></script>
+
+<div id="app">
+
+<!-- 使用components中的is特性，动态切换，可以应用于财付通中的QQ转账和银行卡转账 -->
+
+<button @click="currentView = 'home'">Home</button>
+<button @click="currentView = 'connect'">Connect</button>
+<button @click="currentView = 'about'">About</button>
+
+<component :is="currentView"></component>
+
+<!-- 如果把切换出去的组件保留在内存中，可以保留它的状态或避免重新渲染。为此可以添加一个 keep-alive 指令参数： -->
+<keep-alive>
+	<component :is="currentView"></component>
+</keep-alive>
+
+
+</div>
+
+<script type="text/javascript">
+	const app = new Vue({
+		el: '#app',
+		data: {
+			currentView: 'home'
+		},
+		created() {
+
+		},
+		computed: {
+
+		},
+		methods: {
+
+		},
+		watch: {
+
+		},
+		components: {
+			home: {
+				template: '<div>home</div>'
+			},
+			connect: {
+				template: '<div>connect</div>'
+			},
+			about: {
+				template: '<div>about</div>'
+			},
+		}
+	})
+</script>
+</body>
+</html>

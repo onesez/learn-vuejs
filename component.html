@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>title</title>
+</head>
+<body>
+<script type="text/javascript" src="vue.js"></script>
+
+<div id="app">
+
+<!-- 使用is特性，另外使用了父组件于子组件通信 -->
+<div is="example-component" :title="title" :content="content"></div>
+
+
+<!-- 局部注册 -->
+<child-component></child-component>
+<!-- 全局注册 -->
+<global-component></global-component>
+
+<!-- IS特性 -->
+<ul><li is="list"></li></ul>
+
+<!-- 共用一个变量 -->
+<num-component></num-component>
+<num-component></num-component>
+<num-component></num-component>
+
+<hr>
+
+<!-- 有自己的变量 -->
+<number-component></number-component>
+<number-component></number-component>
+<number-component></number-component>
+
+<hr>
+
+<!-- prop特性+bind特性 -->
+<input type="text" v-model="content" placeholder="定义bind的内容">
+<diy-message content="这是非bind特性绑定内容"></diy-message>
+<diy-message :content="content"></diy-message>
+
+<hr>
+
+<!-- 单向数据流 -->
+<one-component :one="one"></one-component>
+<input type="text" v-model="one">
+
+<hr>
+
+
+<!-- 使用 $on(eventName) 监听事件
+使用 $emit(eventName) 触发事件
+不能用 $on 监听子组件释放的事件，而必须在模板里直接用 v-on 绑定，参见下面的例子。 -->
+<on-emit @increment="totalNumber"></on-emit>
+<on-emit @increment="totalNumber"></on-emit>
+总共：{{ totalNum }}
+
+
+</div>
+
+<script type="text/javascript">
+
+	// 局部注册
+	var Child = {
+		template: '<div>这是全局注册</div>'
+	}
+	Vue.component('child-component', Child)
+
+	// 全局注册
+	Vue.component('global-component', {
+		template: '<div>全局注册</div>'
+	})
+
+	// is特性
+	Vue.component('list', {
+		props: {
+			title: {
+				default: '标题未定义：你一定要记住is特性',
+				type: [String, Number]
+			}
+		},
+		template: `<div><h3>{{ title }}</h3><li v-for="list in lists" v-text="list"></li></div>`,
+		data: function () {
+			return {
+				lists: [
+					'记住IS特性',
+					'记住IS特性',
+					'记住IS特性',
+				]
+			}
+		}
+	})
+
+	// 共用一个变量
+	var data = {
+		num: 0
+	}
+	Vue.component('num-component', {
+		template: '<button @click="num += 1">共用一个变量：{{ num }}</button>',
+		data: function () {
+			return data
+		}
+	})
+
+	// 有自己的变量
+	Vue.component('number-component', {
+		template: '<button @click="number += 1">有自己的变量：{{ number }}</button>',
+		data: function () {
+			return {
+				number: 0
+			}
+		}
+	})
+
+	// prop特性+bind特性
+	Vue.component('diy-message', {
+		props: {
+			content: {
+				default: '未定义消息内容',
+				type: [String, Number, Boolean, Function, Object, Symbol],
+			},
+		},
+		template: '<div>{{ content }}</div>'
+	})
+
+	// 组件示例
+	Vue.component('example-component', {
+		// props: ['title', 'content'],
+		props: {
+			title: [String, Number],
+			content: {
+				type: String,
+				default: '未初始化内容'
+			},
+		},
+		template: `<div>
+		标题是：{{ title }}
+		<br />
+		内容是：{{ content }}
+		<br />
+		内置变量：{{ message }}
+		</div>`,
+		data: function () {
+			return {
+				message: '消息'
+			}
+		}
+	})
+
+	// 单向数据流
+	Vue.component('one-component', {
+		props: ['one'],
+		data: function () {
+			return {
+				content: this.one
+			}
+		},
+		template: '<div>{{ content }}</div>'
+	})
+
+	// prop示例
+	Vue.component('prop', {
+		props: {
+			title: String,
+			age: Number,
+			content: [String, Number],
+			check: {
+				type: String,
+				required: true
+			},
+			checkout: {
+				type: [String, Number],
+				required: true
+			},
+			default: {
+				type: Number,
+				default: 1
+			},
+			object: {
+				type: Object,
+				default: function () {
+					return {
+						message: 'hello'
+					}
+				}
+			},
+			validate: {
+				validator: function (val) {
+					return val < 10
+				}
+			},
+			// type 也可以是一个自定义构造器函数，使用 instanceof 检测。
+			// 
+		}
+	})
+
+	Vue.component('on-emit', {
+		template: '<button @click="incrementCounter">{{ num }}</button>',
+		data: function () {
+			return {
+				num: 0,
+			}
+		},
+		methods: {
+			incrementCounter: function () {
+				this.num += 1
+				this.$emit('increment')
+			}
+		}
+	})
+
+	var app = new Vue({
+		el: '#app',
+		data: {
+			title: '标题',
+			content: '内容',
+			number: 1,
+			content: '这是利用bind绑定内容消息示例',
+			one: '单项数据流，这里删除不会通讯到子组件，稳定装逼（可以对比上面的双向绑定）',
+			totalNum: 0
+		},
+		created() {
+
+		},
+		computed: {
+
+		},
+		methods: {
+			totalNumber: function () {
+				this.totalNum += 1
+			}
+		},
+		watch: {
+
+		}
+	})
+</script>
+</body>
+</html>

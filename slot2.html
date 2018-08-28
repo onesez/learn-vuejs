@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>title</title>
+</head>
+<body>
+<script type="text/javascript" src="vue.js"></script>
+
+<div id="app">
+
+<!-- slot的应用 -->
+<app-layout>
+	<h1 slot="header">这是header</h1>
+	<p>这是main</p>
+	<div slot="footer">这是footer</div>
+</app-layout>
+
+</div>
+
+<script type="text/javascript">
+	Vue.component('app-layout', {
+		template: `<div class="container">
+			<header>
+				<slot name="header"></slot>
+			</header>
+			<main>
+				<slot></slot>
+			</main>
+			<footer>
+				<slot name="footer"></slot>
+			</footer>
+		</div>`
+	})
+	var app = new Vue({
+		el: '#app',
+		data: {
+
+		},
+		created() {
+
+		},
+		computed: {
+
+		},
+		methods: {
+
+		},
+		watch: {
+
+		}
+	})
+</script>
+</body>
+</html>

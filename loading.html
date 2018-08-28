@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>loading</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <style type="text/css">
+        .top-alert{height:35px;left:50%;margin-left:-300px;min-width:400px;padding-top:5px;position:absolute;text-align:center;top:0;}
+        .top-alert span{background-color:#fff;border:1px solid #d1d2d3;border-radius:2px;display:inline-block;font-size:12px;height:33px;line-height:33px;overflow:hidden;padding:0 22px 0 53px;word-break:break-all;word-wrap:break-word;}
+        .top-alert-icon-done{background:url(https://imgcache.qq.com/open_proj/proj_qcloud_v2/bee-v2/css/img/top-panel-alert.png) 19px -6px no-repeat}
+        .top-alert-icon-none{background:url(https://imgcache.qq.com/open_proj/proj_qcloud_v2/bee-v2/css/img/top-panel-alert.png) 19px -104px no-repeat}
+        .top-alert-icon-waring{background:url(https://imgcache.qq.com/open_proj/proj_qcloud_v2/bee-v2/css/img/top-panel-alert.png) 19px -54px no-repeat}
+        .top-alert-icon-doing{background:url(https://imgcache.qq.com/open_proj/proj_qcloud_v2/bee-v2/css/img/top-alert-icon-doing.gif) 19px 3px no-repeat}
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <button @click="start">开始</button>
+        <button @click="end">结束</button>
+
+        <div v-if="loading" class="top-alert" id="topAlert" style="z-index: 1100; margin-left: -200px; display: block;">
+            <span class="top-alert-icon-doing fade-in" style="display: inline-block;">正在加载...</span>
+        </div>
+        <div v-else class="top-alert" id="topAlert" style="z-index: 1100; margin-left: -200px; display: block;">
+            <span class="top-alert-icon-done fade-in" style="display: inline-block;">修改成功！</span>
+        </div>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                msg: 'test',
+                loading: true,
+            },
+            methods: {
+                start() {
+                    this.loading = true
+                },
+                end() {
+                    this.loading = false
+                },
+            }
+        })
+    </script>
+</body>
+</html>

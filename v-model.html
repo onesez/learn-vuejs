@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>title</title>
+</head>
+<body>
+<script type="text/javascript" src="vue.js"></script>
+
+<div id="app">
+
+
+<!-- trim().toLowercase() -->
+|{{ input.trim().toLowerCase() }}|
+
+
+<input type="text" v-model="input">{{ input }}
+<hr>
+<input type="text" :value="input" @input="input = $event.target.value">{{ input }}
+
+</div>
+
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app',
+		data: {
+			input: '',
+		},
+		created() {
+
+		},
+		computed: {
+
+		},
+		methods: {
+
+		},
+		watch: {
+
+		}
+	})
+</script>
+</body>
+</html>

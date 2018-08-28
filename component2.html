@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>title</title>
+</head>
+<body>
+<script type="text/javascript" src="vue.js"></script>
+
+<div id="app">
+
+<async-example></async-example>
+
+</div>
+
+<script type="text/javascript">
+	Vue.component('async-example', function (resolve, reject) {
+		// 将组件定义传入 resolve 回调函数
+		resolve({
+			template: '<div>I am async</div>'
+		}, 1000)
+	})
+	var app = new Vue({
+		el: '#app',
+		data: {
+
+		},
+		created() {
+
+		},
+		computed: {
+
+		},
+		methods: {
+
+		},
+		watch: {
+
+		}
+	})
+</script>
+</body>
+</html>

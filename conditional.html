@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>title</title>
+</head>
+<body>
+<script type="text/javascript" src="vue.js"></script>
+
+<div id="app">
+
+
+<!-- 特别声明：v-if\v-else-if\v-else结果只能为一个 -->
+
+<div v-if="type === 'A'">
+  A
+</div>
+<div v-else-if="type === 'B'">
+  B
+</div>
+<div v-else-if="type === 'C'">
+  C
+</div>
+<div v-else>
+  Not A/B/C
+</div>
+
+
+<p v-show="show">show</p>
+
+<template v-if="loginType == 'username'">
+	<label>Username</label>
+	<input placeholder="用户名">
+</template>
+<template v-else>
+	<label>Email</label>
+	<input placeholder="邮箱">
+</template>
+<button @click="toggleType">转换</button>
+
+
+
+<!-- 注意，<label> 元素仍然会被高效地复用，因为它们没有添加 key 属性。 -->
+<template v-if="registerType == 'username'">
+	<label>Username</label>
+	<input placeholder="用户名" key="username-input">
+</template>
+<template v-else>
+	<label>Email</label>
+	<input placeholder="邮箱" key="email-input">
+</template>
+<button @click="registerToggle">转换</button>
+
+
+
+
+
+</div>
+
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app',
+		data: {
+			type: 'A',
+			show: true,
+			loginType: 'username',
+			registerType: 'username'
+		},
+		created() {
+
+		},
+		computed: {
+		},
+		methods: {
+			toggleType: function () {
+				this.loginType = this.loginType === 'username' ? 'email' : 'username'
+			},
+			registerToggle: function () {
+				this.registerType = this.registerType === 'username' ? 'email' : 'username'
+			}
+
+		},
+		watch: {
+		}
+	})
+</script>
+</body>
+</html>

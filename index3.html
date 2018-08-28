@@ -1,0 +1,86 @@
+<!-- 补充内容 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
+</head>
+<body>
+<script src="vue.js"></script>
+
+
+<div id="app" class="container">
+
+
+	<tabs>
+		<tab name="Pritures" :selected="true">
+			<h1>Pritures</h1>
+		</tab>
+		<tab name="Music">
+			<h1>Music</h1>
+		</tab>
+		<tab name="Video">
+			<h1>Video</h1>
+		</tab>
+	</tabs>
+
+</div>
+
+<script>
+
+	Vue.component('tabs', {
+		template: `
+			<div>
+				<div class="tabs is-centered">
+					  <ul>
+					    <li class="is-active">
+					      <a>
+					        <span class="icon is-small"><i class="fa fa-image"></i></span>
+					        <span>Pictures</span>
+					      </a>
+					    </li>
+					    <li>
+					      <a>
+					        <span class="icon is-small"><i class="fa fa-music"></i></span>
+					        <span>Music</span>
+					      </a>
+					    </li>
+					    <li>
+					      <a>
+					        <span class="icon is-small"><i class="fa fa-film"></i></span>
+					        <span>Videos</span>
+					      </a>
+					    </li>
+					  </ul>
+				</div>
+				<div class="tabs-details">
+					<slot></slot>
+				</div>
+			</div>
+		`,
+		data() {
+			return {
+				tabs: []
+			}
+		},
+		mounted() {
+			console.log(this.$children)
+		}
+	})
+
+	Vue.component('tab', {
+		template: '<div><slot></slot></div>',
+		props: {
+			name: { required: true },
+
+		}
+	})
+
+	var app = new Vue({
+		el: '#app'
+	})
+</script>
+</body>
+</html>

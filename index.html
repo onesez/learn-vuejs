@@ -1,0 +1,83 @@
+<!-- 基础内容 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>title</title>
+</head>
+<body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue"></script>
+<style type="text/css">
+	.color-red {
+		color: #ff0000;
+	}
+</style>
+<div id="app">
+
+	<!-- 获得data -->
+	<p v-text="msg" :class="className"></p>
+
+	<!-- v-model -->
+	<input type="text" name="text" v-model="msg">
+
+	<h2>所有任务</h2>
+	<ul>
+		<!-- 直接使用v-text -->
+		<li v-for="name in names" v-text="name.content"></li>
+		<!-- 控制台尝试：app.names.push('haha') -->
+	</ul>
+
+	<h1>未完成任务</h1>
+	<ul>
+		<li v-for="name in incompeleteTash" v-text="name.content"></li>
+	</ul>
+
+	<hr>
+
+	<input type="text" name="text" v-model="newTodo" @keyup.enter="addTodo">
+	<button @click="addTodo" :title="title">addTodo</button>
+
+</div>
+
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app',
+		data: {
+			msg: 'msg',
+			names: [
+				{ content: "1", compelete:false },
+				{ content: "2", compelete:true },
+				{ content: "3", compelete:false },
+				{ content: "4", compelete:true },
+				{ content: "5", compelete:false },
+				{ content: "6", compelete:true },
+			],
+			newTodo: [],
+			title: 'im the title',
+			className: 'color-red'
+		},
+		mounted() {
+			// alert('mounted')
+		},
+		methods: {
+			addTodo() {
+				this.names.push({
+					content: this.newTodo,
+					compelete: false
+				})
+			}
+		},
+		computed: {
+			// 获得所有未完成的任务
+			incompeleteTash() {
+				return this.names.filter(name => ! name.compelete)
+			}
+		}
+	})
+
+	// 待办事项：重要
+	// component中template中的slot用法
+</script>
+
+</body>
+</html>

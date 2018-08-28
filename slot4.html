@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>title</title>
+</head>
+<body>
+<script type="text/javascript" src="vue.js"></script>
+
+<div id="app">
+
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+<!-- 作用域插槽 未完成 -->
+
+<!-- slot的应用 -->
+<my-awesome-list :items="items">
+	<li slot="item" slot-scope="props">
+		{{ props.text }}
+	</li>
+</my-awesome-list>
+
+</div>
+
+<script type="text/javascript">
+	Vue.component('my-awesome-list', {
+		template: `<ul>
+			<slot name="item" v-for="item in items" v-text="item.text">
+			// 这里可以写备用内容
+			</slot>
+		</ul>`
+	})
+	var app = new Vue({
+		el: '#app',
+		data: {
+			items: [
+				{ text: '1' },
+				{ text: '2' },
+				{ text: '3' },
+				{ text: '4' },
+			]
+		},
+		created() {
+
+		},
+		computed: {
+
+		},
+		methods: {
+
+		},
+		watch: {
+
+		}
+	})
+</script>
+</body>
+</html>

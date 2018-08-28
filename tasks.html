@@ -1,0 +1,62 @@
+<!-- 实战：提醒事项 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>title</title>
+</head>
+<body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<div id="app">
+
+	<label>添加提醒事项：</label>
+	<input type="text" v-model="newTask" placeholder="提醒事项" @keyup.enter="addTask">
+
+	<hr>
+
+	提醒事项：
+	<button @click="allConpelete">全部</button>
+	<button @click="compelete">已完成</button>
+	<button @click="noCompelete">未完成</button>
+	<ul>
+		<li v-for="task in tasks" v-text="task.body"></li>
+	</ul>
+
+</div>
+
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app',
+		data: {
+			tasks: [
+				{ body: '去超市', compelete: false },
+				{ body: '充值话费', compelete: false },
+				{ body: '一起打游戏', compelete: false },
+			],
+			newTask: ''
+		},
+		mounted() {
+			console.log('mounted')
+		},
+		methods: {
+			addTask() {
+				this.tasks.push({
+					body: this.newTask,
+					compelete: false
+				})
+			},
+			allConpelete() {
+				alert(1)
+			},
+			compelete() {
+				alert(1)
+			},
+			noCompelete() {
+				alert(1)
+			}
+		}
+	})
+</script>
+</body>
+</html>

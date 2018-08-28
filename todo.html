@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>title</title>
+</head>
+<body>
+<script type="text/javascript" src="vue.js"></script>
+
+<div id="app">
+
+	<input type="text" v-model="newTodo" @keyup.enter="addNewTodo" placeholder="提醒内容">
+
+	<ul>
+		<!-- is特性：相当于<todo-item></todo-item>这个组件实例，这种用法非常棒，请牢记！ -->
+		<li
+			is="todo-item"
+			v-for="(todo, index) in todos"
+			:key="todo.id"
+			:title="todo.title"
+			@remove="todos.splice(index, 1)"
+		></li>
+	</ul>
+	
+	{{ todos }}
+
+</div>
+
+<script type="text/javascript">
+	Vue.component('todo-item', {
+		props: ['title'],
+		template: `<li>{{ title }}<button @click="$emit('remove')">X</button></li>`
+	})
+	var app = new Vue({
+		el: '#app',
+		data: {
+			newTodo: '',
+			todos: [
+				{ id:1, title: 'One' },
+				{ id:2, title: 'Two' },
+				{ id:3, title: 'Three' },
+			],
+			todoId: 4
+		},
+		created() {
+		},
+		computed: {
+
+		},
+		methods: {
+			addNewTodo: function () {
+				this.todos.push({
+					id: this.todoId++,
+					title: this.newTodo
+				})
+				this.newTodo = ''
+			}
+		},
+		watch: {
+
+		}
+	})
+</script>
+</body>
+</html>

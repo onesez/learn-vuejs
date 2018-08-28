@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>title</title>
+</head>
+<body>
+<script type="text/javascript" src="vue.js"></script>
+<script src="https://cdn.rawgit.com/chrisvfritz/5f0a639590d6e648933416f90ba7ae4e/raw/974aa47f8f9c5361c5233bd56be37db8ed765a09/currency-validator.js"></script>
+
+<div id="app">
+
+<diy-input label="Price" v-model="price"></diy-input>
+<diy-input label="Shipping" v-model="shipping"></diy-input>
+<diy-input label="Discount" v-model="discount"></diy-input>
+
+<div>Total: ${{ total }}</div>
+
+</div>
+
+<script type="text/javascript">
+	Vue.component('diy-input', {
+		props: {
+			label: {
+				type: String,
+				default: ''
+			},
+			value: {
+				type: Number,
+				default: 0
+			}
+		},
+		template: '<div><label v-if="label">{{ label }}</label> $<input ref="input" :value="value" @input="updateValue($event.target.value)" @blur="formatValue" @focus="selectAll" /></div>',
+		mounted: function () {
+			this.formatValue()
+		},
+		methods: {
+			updateValue: function (value) {
+				var result = currencyValidator.parse(value, this.value)
+				if (result.warning) {
+					this.$refs.input.value = result.value
+				}
+				this.$emit('input', result.value)
+			},
+			formatValue: function () {
+				this.$refs.input.value = currencyValidator.format(this.value)
+			},
+			selectAll: function (event) {
+				// 使用setTimeout解决safari的BUG
+				setTimeout(function () {
+					event.target.select()
+				}, 0)
+			}
+		}
+	})
+
+	var app = new Vue({
+		el: '#app',
+		data: {
+			price: 0,
+			shipping: 0,
+			discount: 0,
+		},
+		// 只有改变的时候才会重新操作，带有缓存的
+		computed: {
+			total: function () {
+				return ((this.price * 100 + this.shipping * 100 - this.discount * 100) / 100).toFixed(2)
+			}
+		},
+	})
+</script>
+</body>
+</html>

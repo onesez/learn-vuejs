@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>title</title>
+</head>
+<body>
+<script type="text/javascript" src="vue.js"></script>
+
+<div id="app">
+
+<!-- 而数组中的key都是一样的 -->
+<ul v-for="(array, index) in arrays">
+	<li>
+		val:{{ array.name }}
+		index:{{ index }}
+	</li>
+</ul>
+
+<hr>
+
+<!-- 一般对象的key => val中的key是不一样的 -->
+<ul v-for="(val, key, index) in objects">
+	<li>
+		val:{{ val }}
+		key:{{ key }}
+		index:{{ index }}
+	</li>
+</ul>
+
+</div>
+
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app',
+		data: {
+			arrays: [
+				{ name: '张三' },
+				{ name: '李四' },
+				{ name: '王五' },
+				{ name: '老六' },
+			],
+			objects: {
+				one: '张三',
+				two: '李四',
+				three: '王五',
+				forth: '老六',
+			},
+		},
+		created() {
+
+		},
+		computed: {
+
+		},
+		methods: {
+
+		},
+		watch: {
+
+		}
+	})
+</script>
+</body>
+</html>
